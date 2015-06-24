@@ -17,6 +17,6 @@ public class BaseEnemy : MonoBehaviour {
 
 	void Attack(int decr_health){
 		health = health - decr_health;
-		transform.localScale = new Vector3(health / 10, health / 10, 1);
+		transform.localScale = new Vector3(health / 15, health / 15, 1);
 	}
 }

@@ -4,7 +4,10 @@ using System.Collections;
 public class Base : MonoBehaviour {
 	public int health;
 	public int power;
+	public GameObject bullet;
 	public GameObject enemy;
+
+	public Vector2 velocity;
 	// Use this for initialization
 	void Start () {
 		health = 100;
@@ -17,16 +20,22 @@ public class Base : MonoBehaviour {
 		if (Input.GetKeyDown("space")) {
 			Attack();
 		}
-
 	}
 
 	void Attack() {
 		if (power == 0) return;
+
+		Vector2 way;
+		float speed;
+
+		GameObject bullet1 = Instantiate(bullet, transform.position, transform.rotation) as GameObject;
+		Physics2D.IgnoreCollision(bullet1.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+		bullet1.GetComponent<Rigidbody2D>().AddForce((enemy.transform.position - transform.position), ForceMode2D.Force);
 		enemy.SendMessage ("Attack", (1));
 		power--;
 	}
 	
-	void IncreasePower () {
+	void IncreasePower (){
 		power += 1;
 
 		if (power < 10)
